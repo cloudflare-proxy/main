@@ -1,0 +1,20 @@
+version: '3.4'
+services:
+  cfproxy:
+    image: cloudflare-proxy
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "1080:1080"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    secrets:
+      - wgcf.conf
+secrets:
+  wgcf.conf:
+    file: ./wgcf-profile.conf
